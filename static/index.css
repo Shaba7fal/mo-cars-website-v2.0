@@ -1,0 +1,18 @@
+.title {
+    font-size: 30px;
+}
+
+
+.img-fluid{
+    margin-bottom: 20px;
+}
+
+.border-bottom {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+
+.btn btn-dark {
+    align-self: right;
+}

@@ -1,43 +1,26 @@
 from flask import Flask, render_template, url_for, jsonify
+import pandas as pd
+from database import engine, text, load_cars_from_db, load_car_from_db
 
 app = Flask(__name__)
-
-
-CARS = [
-   {
-      'id':1,
-      'title': 'Porche GT3 RS',
-      'location': 'Toronto, ON',
-      'price': 230000
-
-   },
-
-   {
-      'id':2,
-      'title': 'Mercades AMG',
-      'location': 'Addis Abeba, Ethiopia',
-      'price': 150000
-
-   },
-
-   {
-      'id':3,
-      'title': 'Toyota GR86',
-      'location': 'Aden, Yemen',
-      'price': 30000
-
-   }
-]
 
 
 
 @app.route("/")
 def hello_world():
-    return render_template('home.html', cars=CARS)
+    cars = load_cars_from_db()
+    return render_template('home.html', cars=cars)
 
 @app.route("/api/cars")
 def list_cars():
+  CARS = load_cars_from_db()
   return jsonify(CARS)
+
+
+@app.route("/car/<id>")
+def show_car(id):
+   job = load_car_from_db(id)
+   return jsonify(job)
 
 
 if __name__== "__main__":
